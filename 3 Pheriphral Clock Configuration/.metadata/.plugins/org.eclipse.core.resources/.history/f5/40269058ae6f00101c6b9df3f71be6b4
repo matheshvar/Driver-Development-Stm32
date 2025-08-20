@@ -1,0 +1,56 @@
+/*
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+#include <stdint.h>
+
+#define RCC_OFFSET_ADDR			0x08UL
+
+#define RCC_CLK_CFG_BASE		0x40023800UL
+
+#define RCC_CLK_CFG_ADDR		(RCC_CLK_CFG_BASE + RCC_OFFSET_ADDR )
+
+int main(void)
+{
+
+	 uint32_t *pRCC_CLK_CFG_ADDR = (uint32_t*) RCC_CLK_CFG_ADDR;
+
+	//1. Configure the RCC_CFGR MCO1 Bit fields to select HS1 as Clock Source
+	*pRCC_CLK_CFG_ADDR &= ~(0x3 << 21); // Clear 21 and 22 Bit Positions
+
+
+	//2. Configure PA8 to AF0 Mode to behave as MCO1 Signal
+
+/*
+ * You are not expected to understand the below codes for the time being
+ * because these codes are related to GPIO Configuration
+ * Which will be covered in later sections of this course
+ */
+
+	// a) Enable the peripheral clock for GPIO Peripheral
+
+	uint32_t
+
+
+
+
+    /* Loop forever */
+	for(;;);
+}
+
+
+
+
+
+

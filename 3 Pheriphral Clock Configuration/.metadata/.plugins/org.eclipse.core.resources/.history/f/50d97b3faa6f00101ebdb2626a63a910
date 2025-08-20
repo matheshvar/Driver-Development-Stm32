@@ -1,0 +1,42 @@
+/*
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+#include <stdint.h>
+
+#define RCC_OFFSET_ADDR			0x08UL
+
+#define RCC_CLK_CFG_BASE		0x40023800UL
+
+#define RCC_CLK_CFG_ADDR		(RCC_CLK_CFG_BASE + RCC_OFFSET_ADDR )
+
+int main(void)
+{
+
+	*pRCC_CLK_CFG_ADDR = (uint32_t*) RCC_CLK_CFG_ADDR;
+
+	//1. Enable the bits of MCO1 In the clock config register by clearing the bits 21 and 22
+	*pRCC_CLK_CFG_ADDR &= ~(0x3 << 21); // Clear 21 and 22 Bit Positions
+
+
+
+    /* Loop forever */
+	for(;;);
+}
+
+
+
+
+
+

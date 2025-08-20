@@ -1,0 +1,55 @@
+
+#include <stdint.h>
+
+#define GPIOA_BASE_ADDR 		0x40020000UL
+
+#define RCC_OFFSET_ADDR			0x08UL
+
+#define RCC_CLK_BASE		0x40023800UL
+
+#define RCC_CLK_CFG_ADDR		(RCC_CLK_BASE + RCC_OFFSET_ADDR )
+
+int main(void)
+{
+
+	 uint32_t *pRCC_CLK_CFG_ADDR = (uint32_t*) RCC_CLK_CFG_ADDR;
+
+	//1. Configure the RCC_CFGR MCO1 Bit fields to select HS1 as Clock Source
+	*pRCC_CLK_CFG_ADDR &= ~(0x3 << 21); // Clear 21 and 22 Bit Positions
+
+	//Configure MCO1 prescalar
+	*pRccCfgrReg |= ( 1 << 25);
+	*pRccCfgrReg |= ( 1 << 26);
+
+
+	//2. Configure PA8 to AF0 Mode to behave as MCO1 Signal
+
+/*
+ * You are not expected to understand the below codes for the time being
+ * because these codes are related to GPIO Configuration
+ * Which will be covered in later sections of this course
+ */
+
+	// a) Enable the peripheral clock for GPIO Peripheral
+
+	uint32_t *pRCC_AHB1ENR = (uint32_t*) (RCC_CLK_BASE + 0x30);
+	*pRCC_AHB1ENR |= (1<<0); //Enable GPIOA Peripheral Clock
+
+	// b) Configure the mode of GPIO pin 8 as an alternate function mode
+	uint32_t *pGPIOA_MODE_REG = (uint32_t*) (GPIOA_BASE_ADDR + 00);
+	*pGPIOA_MODE_REG &= ~(0x3 <<16); // Clear
+	*pGPIOA_MODE_REG |=  (0x2 << 16); // Set
+
+	// C) Configure the alternation function reg to the set mode 0 for PA8
+	uint32_t *pGPIOAAltFunHighReg = (uint32_t*)(GPIOA_BASE_ADDR + 0x24);
+	*pGPIOAAltFunHighReg &= ~( 0xf << 0);
+
+    /* Loop forever */
+	for(;;);
+}
+
+
+
+
+
+
